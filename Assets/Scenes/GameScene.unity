@@ -850,9 +850,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7cff70d5878ce5746a79718c1a821639, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
+  cam: {fileID: 543393835}
   speed: 10
-  jumpForce: 100
+  jumpForce: 500
   moveDirection: {x: 0, y: 0, z: 0}
+  rotateDirection: {x: 0, y: 0, z: 0}
+  rotateSpeed: 5
 --- !u!114 &1246344391
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -918,6 +921,22 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 1a68f455-54ce-4501-8cd9-76171142de01
     m_ActionName: 'Player/Vacumm[/Mouse/rightButton]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1246344393}
+        m_TargetAssemblyTypeName: PlayerInputHandler, Assembly-CSharp
+        m_MethodName: OnLook
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: cee8b843-2dad-4909-8ba1-58ecc490a20d
+    m_ActionName: 'Player/Look[/Mouse/position]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -948,7 +967,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 90
   m_CollisionDetection: 0
 --- !u!114 &1246344393
 MonoBehaviour:
@@ -984,6 +1003,21 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: PlayerMovement, Assembly-CSharp
         m_MethodName: Jump
         m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnMouseMoveInput:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1246344390}
+        m_TargetAssemblyTypeName: PlayerMovement, Assembly-CSharp
+        m_MethodName: Rotate
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

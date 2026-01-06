@@ -6,6 +6,7 @@ public class PlayerInputHandler : MonoBehaviour
 {
     public UnityEvent<Vector2> OnMoveInput;
     public UnityEvent OnJumpInput;
+    public UnityEvent <Vector2>OnMouseMoveInput;
 
     public void OnMove(InputAction.CallbackContext context)
     {
@@ -16,5 +17,12 @@ public class PlayerInputHandler : MonoBehaviour
     {
         if (context.performed || context.canceled)
             OnJumpInput?.Invoke();
+    }
+
+    public void OnLook(InputAction.CallbackContext context)
+    {
+        Debug.Log("OnLook called, context.phase: " + context.phase);
+        if (context.performed || context.canceled)
+            OnMouseMoveInput?.Invoke(context.ReadValue<Vector2>());
     }
 }
