@@ -8,7 +8,7 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody rb;
     private PlayerInputHandler playerInputHandler;
     [SerializeField] private float speed = 5;
-    [SerializeField] private float jumpForce = 500;
+    [SerializeField] private float jumpForce = 200;
     [SerializeField] private Vector3 moveDirection;
     [SerializeField] private Vector3 rotateDirection;
     [SerializeField] private float rotateSpeed = 5.0f;
@@ -34,7 +34,7 @@ public class PlayerMovement : MonoBehaviour
     {
         Debug.Log("Im at Move");
         input.Normalize();
-        moveDirection = new Vector3(input.x, 0, input.y);
+        moveDirection = new Vector3(input.x, 0, 0);
     }
     
     
@@ -45,13 +45,23 @@ public class PlayerMovement : MonoBehaviour
 
     public void Rotate(Vector2 input)
     {
-        Debug.Log("Im at Rotate");
-        mousePosition = input;
-        Vector3 worldPosition =  cam.ScreenToWorldPoint(new Vector3(mousePosition.x, mousePosition.y, cam.nearClipPlane));
-        rotateDirection = (worldPosition - transform.position).normalized;
-        rotateDirection.z = 0;
-        
-        float angle = Mathf.Atan2(rotateDirection.y, rotateDirection.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.Euler(0, 0, angle);
+        Ray ray = cam.ScreenPointToRay(input);
+        Plane groundPlane = new Plane(Vector3.up, Vector3.zero);
+
+        if (groundPlane.Raycast(ray, out float hit))
+        {
+            Vector3 worldPosition = ray.GetPoint(hit);
+            rotateDirection = worldPosition - transform.position.normalized;
+            rotateDirection.y = 0;
+        }
+
+        if (rotateDirection.sqrMagnitude > 0.001f)
+        {
+            transform.rotation = Quaternion.Slerp(
+                transform.rotation,
+                Quaternion.LookRotation(rotateDirection, Vector3.up),
+                rotateSpeed * Time.deltaTime
+            );
+        }
     }
 }
