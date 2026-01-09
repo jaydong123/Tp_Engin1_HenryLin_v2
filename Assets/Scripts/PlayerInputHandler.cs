@@ -1,28 +1,40 @@
+using System;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
 public class PlayerInputHandler : MonoBehaviour
 {
-    public UnityEvent<Vector2> OnMoveInput;
-    public UnityEvent OnJumpInput;
-    public UnityEvent <Vector2>OnMouseMoveInput;
+    public event Action<Vector2> OnMoveInput;
+    public event Action OnJumpInput;
 
-    public void OnMove(InputAction.CallbackContext context)
+    private PlayerInput _playerInput;
+
+    private void Awake()
     {
-        if (context.performed || context.canceled)
-            OnMoveInput?.Invoke(context.ReadValue<Vector2>());
-    }
-    public void OnJump(InputAction.CallbackContext context)
-    {
-        if (context.performed || context.canceled)
-            OnJumpInput?.Invoke();
+        if (!_playerInput)
+            _playerInput = GetComponent<PlayerInput>();
     }
 
-    public void OnLook(InputAction.CallbackContext context)
+    private void OnEnable()
     {
-        Debug.Log("OnLook called, context.phase: " + context.phase);
-        if (context.performed || context.canceled)
-            OnMouseMoveInput?.Invoke(context.ReadValue<Vector2>());
+        _playerInput.actions["Move"].performed += OnMovePerformed;
+        _playerInput.actions["Move"].canceled += OnMovePerformed;
+        _playerInput.actions["Jump"].performed += OnJumpPerformed;
+    }
+    
+    private void OnDisable()
+    {
+        _playerInput.actions["Move"].performed -= OnMovePerformed;
+        _playerInput.actions["Move"].canceled -= OnMovePerformed;
+        _playerInput.actions["Jump"].performed -= OnJumpPerformed;
+    }
+
+    public void OnMovePerformed(InputAction.CallbackContext context)
+    {
+        OnMoveInput?.Invoke(context.ReadValue<Vector2>());
+    }
+    public void OnJumpPerformed(InputAction.CallbackContext context)
+    {
+        OnJumpInput?.Invoke();
     }
 }

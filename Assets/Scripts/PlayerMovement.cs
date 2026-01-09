@@ -3,10 +3,12 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
+    [Header("Reference")]
+    [SerializeField] PlayerInputHandler playerInputHandler;
+    
     [SerializeField] private Camera cam;
     private Vector2 mousePosition;
     private Rigidbody rb;
-    private PlayerInputHandler playerInputHandler;
     [SerializeField] private float speed = 5;
     [SerializeField] private float jumpForce = 200;
     [SerializeField] private Vector3 moveDirection;
@@ -25,12 +27,26 @@ public class PlayerMovement : MonoBehaviour
         UpdatePosition();
     }
 
+    private void OnEnable()
+    {
+        playerInputHandler.OnMoveInput += OnMoveController;
+        playerInputHandler.OnJumpInput += OnJumpController;
+    }
+
+    private void OnDisable()
+    {
+        playerInputHandler.OnMoveInput -= OnMoveController;
+        playerInputHandler.OnJumpInput -= OnJumpController;
+        
+    }
+    
+
     private void UpdatePosition()
     {
         transform.position += (moveDirection * (speed * Time.deltaTime));
     }
 
-    public void Move(Vector2 input)
+    private void OnMoveController(Vector2 input)
     {
         Debug.Log("Im at Move");
         input.Normalize();
@@ -38,9 +54,12 @@ public class PlayerMovement : MonoBehaviour
     }
     
     
-    public void Jump()
+    private void OnJumpController()
     {
-        rb.AddForce(new Vector3(0, jumpForce, 0), ForceMode.Force);
+        if (IsGrounded())
+        {
+            rb.AddForce(new Vector3(0, jumpForce, 0), ForceMode.Force);
+        }
     }
 
     public void Rotate(Vector2 input)
@@ -63,5 +82,10 @@ public class PlayerMovement : MonoBehaviour
                 rotateSpeed * Time.deltaTime
             );
         }
+    }
+
+    private bool IsGrounded()
+    {
+        return transform.position.y < 2;
     }
 }
