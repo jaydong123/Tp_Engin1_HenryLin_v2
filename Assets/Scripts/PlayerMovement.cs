@@ -1,3 +1,4 @@
+using System.Net;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -5,24 +6,33 @@ public class PlayerMovement : MonoBehaviour
 {
     [Header("Reference")]
     [SerializeField] PlayerInputHandler playerInputHandler;
+    [SerializeField] AnimationHandler animationHandler;
+    
+    
     
     [SerializeField] private Camera cam;
-    private Vector2 mousePosition;
     private Rigidbody rb;
     [SerializeField] private float speed = 5;
-    [SerializeField] private float jumpForce = 200;
+    [SerializeField] private float jumpForce = 500;
+    [SerializeField] private float moveForce = 200;
     [SerializeField] private Vector3 moveDirection;
-    [SerializeField] private Vector3 rotateDirection;
-    [SerializeField] private float rotateSpeed = 5.0f;
+    private bool didDoubleJump = false;
     
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
-        playerInputHandler = GetComponent<PlayerInputHandler>();
+        if (!playerInputHandler)
+            playerInputHandler = GetComponent<PlayerInputHandler>();
+        if (!animationHandler)
+            animationHandler = GetComponent<AnimationHandler>();
     }
 
     // Update is called once per frame
     void Update()
+    {
+    }
+
+    void FixedUpdate()
     {
         UpdatePosition();
     }
@@ -43,14 +53,16 @@ public class PlayerMovement : MonoBehaviour
 
     private void UpdatePosition()
     {
+        //rb.AddForce(moveDirection * (speed * moveForce));
         transform.position += (moveDirection * (speed * Time.deltaTime));
     }
 
     private void OnMoveController(Vector2 input)
     {
-        Debug.Log("Im at Move");
-        input.Normalize();
+        //Debug.Log("Im at Move");
+        //input.Normalize();
         moveDirection = new Vector3(input.x, 0, 0);
+        animationHandler.IsMoving();
     }
     
     
@@ -59,33 +71,23 @@ public class PlayerMovement : MonoBehaviour
         if (IsGrounded())
         {
             rb.AddForce(new Vector3(0, jumpForce, 0), ForceMode.Force);
+            return;
+        }
+
+        if (!didDoubleJump)
+        {
+            didDoubleJump = true;
+            rb.AddForce(new Vector3(0, jumpForce, 0), ForceMode.Force);
+            animationHandler.IsDoubleJumping();
         }
     }
-
-    public void Rotate(Vector2 input)
-    {
-        Ray ray = cam.ScreenPointToRay(input);
-        Plane groundPlane = new Plane(Vector3.up, Vector3.zero);
-
-        if (groundPlane.Raycast(ray, out float hit))
-        {
-            Vector3 worldPosition = ray.GetPoint(hit);
-            rotateDirection = worldPosition - transform.position.normalized;
-            rotateDirection.y = 0;
-        }
-
-        if (rotateDirection.sqrMagnitude > 0.001f)
-        {
-            transform.rotation = Quaternion.Slerp(
-                transform.rotation,
-                Quaternion.LookRotation(rotateDirection, Vector3.up),
-                rotateSpeed * Time.deltaTime
-            );
-        }
-    }
+    
 
     private bool IsGrounded()
     {
-        return transform.position.y < 2;
+        float temp = transform.position.y;
+        if (temp < 1.5f)
+            didDoubleJump = false;
+        return temp < 1.5f;
     }
 }
