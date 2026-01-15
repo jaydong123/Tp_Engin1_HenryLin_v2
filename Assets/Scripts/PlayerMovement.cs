@@ -61,7 +61,7 @@ public class PlayerMovement : MonoBehaviour
     {
         //Debug.Log("Im at Move");
         //input.Normalize();
-        moveDirection = new Vector3(input.x, 0, 0);
+        moveDirection = new Vector3(input.x, 0, input.y);
         animationHandler.IsMoving();
     }
     
