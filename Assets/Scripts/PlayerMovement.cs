@@ -8,6 +8,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] PlayerInputHandler playerInputHandler;
     [SerializeField] AnimationHandler animationHandler;
     
+    [SerializeField] LayerMask groundLayer;
     
     
     [SerializeField] private Camera cam;
@@ -16,7 +17,6 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float jumpForce = 500;
     [SerializeField] private float moveForce = 200;
     [SerializeField] private Vector3 moveDirection;
-    private bool didDoubleJump = false;
     
     void Awake()
     {
@@ -70,24 +70,15 @@ public class PlayerMovement : MonoBehaviour
     {
         if (IsGrounded())
         {
+            Debug.Log("Jump");
             rb.AddForce(new Vector3(0, jumpForce, 0), ForceMode.Force);
             return;
-        }
-
-        if (!didDoubleJump)
-        {
-            didDoubleJump = true;
-            rb.AddForce(new Vector3(0, jumpForce, 0), ForceMode.Force);
-            animationHandler.IsDoubleJumping();
         }
     }
     
 
     private bool IsGrounded()
     {
-        float temp = transform.position.y;
-        if (temp < 1.5f)
-            didDoubleJump = false;
-        return temp < 1.5f;
+        return Physics.Raycast(transform.position, Vector3.down, 1.5f, groundLayer);
     }
 }
