@@ -7,6 +7,7 @@ public class PlayerMovement : MonoBehaviour
     [Header("Reference")]
     [SerializeField] PlayerInputHandler playerInputHandler;
     [SerializeField] AnimationHandler animationHandler;
+    [SerializeField] BoxCollider playerBoxCollider;
     
     [SerializeField] LayerMask groundLayer;
     
@@ -14,10 +15,11 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Camera cam;
     private Rigidbody rb;
     [SerializeField] private float speed = 5;
+    [SerializeField] private float maxSpeed = 10;
     [SerializeField] private float jumpForce = 500;
     [SerializeField] private float moveForce = 200;
     [SerializeField] private Vector3 moveDirection;
-    
+    private float previousDirection;
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -53,15 +55,33 @@ public class PlayerMovement : MonoBehaviour
 
     private void UpdatePosition()
     {
-        //rb.AddForce(moveDirection * (speed * moveForce));
-        transform.position += (moveDirection * (speed * Time.deltaTime));
+        if (Mathf.Abs(rb.linearVelocity.x) < maxSpeed)
+        {
+            rb.AddForce(moveDirection * (speed * Time.deltaTime), ForceMode.Impulse); //too fast
+
+        }
+    }
+
+    private void UpdateSpeed()
+    {
+        Debug.Log(rb.linearVelocity.x);
+
     }
 
     private void OnMoveController(Vector2 input)
     {
-        //Debug.Log("Im at Move");
-        //input.Normalize();
-        moveDirection = new Vector3(input.x, 0, input.y);
+        moveDirection = new Vector3(input.x, 0, input.y).normalized;
+        if (moveDirection.x > 0)
+        {
+            transform.rotation = new Quaternion(0, 0, 0, 0);
+
+        }
+        else if (moveDirection.x < 0) {
+        
+            transform.rotation = new Quaternion(0, 180, 0, 0);
+
+        }
+
         animationHandler.IsMoving();
     }
     
