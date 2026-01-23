@@ -19,7 +19,10 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float jumpForce = 500;
     [SerializeField] private float moveForce = 200;
     [SerializeField] private Vector3 moveDirection;
-    private float previousDirection;
+    
+    [SerializeField] private FocusControlManager.Focus _focus;
+    
+    
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -41,15 +44,36 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnEnable()
     {
-        playerInputHandler.OnMoveInput += OnMoveController;
-        playerInputHandler.OnJumpInput += OnJumpController;
+        FocusControlManager.OnFocusChanged += OnFocus;
+        // playerInputHandler.OnMoveInput += OnMoveController;
+        // playerInputHandler.OnJumpInput += OnJumpController;
     }
 
-    private void OnDisable()
+    private void OnFocus(FocusControlManager.Focus focus)
+    {
+        if (focus == _focus)
+            SubscribeInput();
+        else
+            UnsubscribeInput();
+    }
+
+    private void SubscribeInput()
+    {
+        playerInputHandler.OnMoveInput += OnMoveController;
+        playerInputHandler.OnJumpInput += OnJumpController;
+    }    
+    
+    private void UnsubscribeInput()
     {
         playerInputHandler.OnMoveInput -= OnMoveController;
         playerInputHandler.OnJumpInput -= OnJumpController;
-        
+    }
+    
+    private void OnDisable()
+    {
+        FocusControlManager.OnFocusChanged -= OnFocus;
+        playerInputHandler.OnMoveInput -= OnMoveController;
+        playerInputHandler.OnJumpInput -= OnJumpController;
     }
     
 
@@ -60,12 +84,6 @@ public class PlayerMovement : MonoBehaviour
             rb.AddForce(moveDirection * (speed * Time.deltaTime), ForceMode.Impulse); //too fast
 
         }
-    }
-
-    private void UpdateSpeed()
-    {
-        Debug.Log(rb.linearVelocity.x);
-
     }
 
     private void OnMoveController(Vector2 input)
@@ -88,9 +106,10 @@ public class PlayerMovement : MonoBehaviour
     
     private void OnJumpController()
     {
+        Debug.Log(IsGrounded());
         if (IsGrounded())
         {
-            Debug.Log("Jump");
+            //Debug.Log("Jump");
             rb.AddForce(new Vector3(0, jumpForce, 0), ForceMode.Force);
             return;
         }

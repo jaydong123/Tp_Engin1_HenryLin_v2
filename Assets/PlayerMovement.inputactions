@@ -25,18 +25,9 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Shoot",
+                    "name": "Attack",
                     "type": "Button",
                     "id": "c2cf95eb-a5b2-436b-aecd-5cb899595863",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Vacumm",
-                    "type": "Button",
-                    "id": "1a68f455-54ce-4501-8cd9-76171142de01",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -122,22 +113,11 @@
                 {
                     "name": "",
                     "id": "7e29e4cc-b48c-43e1-8d70-13cf0e9fc6f3",
-                    "path": "<Mouse>/leftButton",
+                    "path": "<Keyboard>/e",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard + Mouse",
-                    "action": "Shoot",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "3669e802-0314-4664-b869-0dd0f965be2f",
-                    "path": "<Mouse>/rightButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Keyboard + Mouse",
-                    "action": "Vacumm",
+                    "action": "Attack",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -149,6 +129,34 @@
                     "processors": "",
                     "groups": ";Keyboard + Mouse",
                     "action": "Look",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "Camera",
+            "id": "f38396f7-a1e9-4964-bb7f-557667265c85",
+            "actions": [
+                {
+                    "name": "Move",
+                    "type": "Value",
+                    "id": "7a79c914-783f-4fad-87c1-a4f4d7f206a2",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "8bed80d6-368f-41be-80a7-275ba37ceac5",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
