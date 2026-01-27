@@ -22,7 +22,6 @@ public class PlayerMovement : MonoBehaviour
     
     [SerializeField] private FocusControlManager.Focus _focus;
     
-    
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -51,7 +50,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnFocus(FocusControlManager.Focus focus)
     {
-        if (focus == _focus)
+        //_focus = focus;
+        if (focus == FocusControlManager.Focus.Player)
             SubscribeInput();
         else
             UnsubscribeInput();
@@ -59,12 +59,14 @@ public class PlayerMovement : MonoBehaviour
 
     private void SubscribeInput()
     {
+        Debug.Log("Player SUBSCRIBED input");
         playerInputHandler.OnMoveInput += OnMoveController;
         playerInputHandler.OnJumpInput += OnJumpController;
     }    
     
     private void UnsubscribeInput()
     {
+        Debug.Log("Player UNSUBSCRIBED input");
         playerInputHandler.OnMoveInput -= OnMoveController;
         playerInputHandler.OnJumpInput -= OnJumpController;
     }
@@ -81,13 +83,14 @@ public class PlayerMovement : MonoBehaviour
     {
         if (Mathf.Abs(rb.linearVelocity.x) < maxSpeed)
         {
-            rb.AddForce(moveDirection * (speed * Time.deltaTime), ForceMode.Impulse); //too fast
+            rb.AddForce(moveDirection * (speed * Time.deltaTime), ForceMode.Impulse);
 
         }
     }
 
     private void OnMoveController(Vector2 input)
     {
+        //Debug.Log(input.ToString()); //why it never called
         moveDirection = new Vector3(input.x, 0, input.y).normalized;
         if (moveDirection.x > 0)
         {
@@ -106,7 +109,6 @@ public class PlayerMovement : MonoBehaviour
     
     private void OnJumpController()
     {
-        Debug.Log(IsGrounded());
         if (IsGrounded())
         {
             //Debug.Log("Jump");

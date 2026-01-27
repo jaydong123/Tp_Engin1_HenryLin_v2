@@ -130,8 +130,10 @@ GameObject:
   - component: {fileID: 543393836}
   - component: {fileID: 543393835}
   - component: {fileID: 543393837}
+  - component: {fileID: 543393839}
   - component: {fileID: 543393834}
   - component: {fileID: 543393833}
+  - component: {fileID: 543393838}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -270,8 +272,52 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CameraController
   player: {fileID: 1989957310}
+  cameraInputHandler: {fileID: 0}
   offset: {x: 0, y: 7, z: -20}
+  moveDirection: {x: 0, y: 0, z: 0}
   speed: 2
+--- !u!114 &543393838
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 543393832}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.InputSystem::UnityEngine.InputSystem.PlayerInput
+  m_Actions: {fileID: -944628639613478452, guid: 00598423103617a4081a03b950ff70c1, type: 3}
+  m_NotificationBehavior: 3
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents: []
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: Keyboard + Mouse
+  m_DefaultActionMap: Camera
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
+--- !u!114 &543393839
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 543393832}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91a1ea2b0f4d46a41a30d6ad6748f05b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CameraInputHandler
 --- !u!1 &655089588
 GameObject:
   m_ObjectHideFlags: 0
@@ -681,6 +727,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1595122159}
   - component: {fileID: 1595122158}
+  - component: {fileID: 1595122160}
   m_Layer: 0
   m_Name: FocusController
   m_TagString: Untagged
@@ -701,6 +748,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FocusControlManager
   _focus: 1
+  _playerInput: {fileID: 0}
 --- !u!4 &1595122159
 Transform:
   m_ObjectHideFlags: 0
@@ -716,6 +764,36 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1595122160
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1595122157}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.InputSystem::UnityEngine.InputSystem.PlayerInput
+  m_Actions: {fileID: -944628639613478452, guid: 00598423103617a4081a03b950ff70c1, type: 3}
+  m_NotificationBehavior: 3
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents: []
+  m_NeverAutoSwitchControlSchemes: 1
+  m_DefaultControlScheme: Keyboard + Mouse
+  m_DefaultActionMap: cc43937b-1dd4-4b33-aaad-19c8b856570c
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
 --- !u!1 &1924613556
 GameObject:
   m_ObjectHideFlags: 0
@@ -1294,6 +1372,14 @@ PrefabInstance:
     - target: {fileID: 1277751263529982604, guid: ed87432fd51fb4240919c4df0aec15b5, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 2255710941131024474, guid: ed87432fd51fb4240919c4df0aec15b5, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2255710941131024474, guid: ed87432fd51fb4240919c4df0aec15b5, type: 3}
+      propertyPath: m_DefaultActionMap
+      value: cc43937b-1dd4-4b33-aaad-19c8b856570c
       objectReference: {fileID: 0}
     - target: {fileID: 4940110059109901434, guid: ed87432fd51fb4240919c4df0aec15b5, type: 3}
       propertyPath: m_Height

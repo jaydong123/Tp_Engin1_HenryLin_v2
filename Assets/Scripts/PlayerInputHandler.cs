@@ -12,7 +12,7 @@ public class PlayerInputHandler : MonoBehaviour
     private void Awake()
     {
         if (!_playerInput)
-            _playerInput = GetComponent<PlayerInput>();
+            _playerInput = FindObjectOfType<PlayerInput>();
     }
 
     private void OnEnable()
