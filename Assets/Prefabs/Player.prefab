@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 5517087477543625507}
   - component: {fileID: 61700825104453595}
   - component: {fileID: 1973854647614260588}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Hat
-  m_TagString: Untagged
+  m_TagString: Entity
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -99,16 +99,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1115431618898974537}
-  - component: {fileID: 947832667384647000}
   - component: {fileID: 6639406623638610423}
-  - component: {fileID: 2255710941131024474}
   - component: {fileID: 1277344426268628837}
   - component: {fileID: 2235398831730299302}
   - component: {fileID: 1238375140134392031}
   - component: {fileID: 4940110059109901434}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Entity
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -129,18 +127,6 @@ Transform:
   - {fileID: 8470869504834051984}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &947832667384647000
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1277751263529982604}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 750a721b4a7655a4c921c72dccf6a4af, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerInputHandler
 --- !u!114 &6639406623638610423
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -153,46 +139,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7cff70d5878ce5746a79718c1a821639, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
-  playerInputHandler: {fileID: 0}
+  gameObjectInputHandler: {fileID: 0}
+  inputHandler: {fileID: 0}
   animationHandler: {fileID: 0}
+  playerBoxCollider: {fileID: 0}
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
   cam: {fileID: 0}
   speed: 5
+  maxSpeed: 10
   jumpForce: 300
   moveForce: 200
   moveDirection: {x: 0, y: 0, z: 0}
---- !u!114 &2255710941131024474
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1277751263529982604}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Unity.InputSystem::UnityEngine.InputSystem.PlayerInput
-  m_Actions: {fileID: -944628639613478452, guid: 00598423103617a4081a03b950ff70c1, type: 3}
-  m_NotificationBehavior: 3
-  m_UIInputModule: {fileID: 0}
-  m_DeviceLostEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_DeviceRegainedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ControlsChangedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ActionEvents: []
-  m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: Keyboard + Mouse
-  m_DefaultActionMap: Player
-  m_SplitScreenIndex: -1
-  m_Camera: {fileID: 0}
+  _focus: 0
 --- !u!95 &1277344426268628837
 Animator:
   serializedVersion: 7
@@ -244,7 +204,7 @@ Rigidbody:
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 128
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -265,7 +225,7 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 128
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -289,9 +249,9 @@ GameObject:
   - component: {fileID: 8470869504834051984}
   - component: {fileID: 6918995251239718536}
   - component: {fileID: 5321817239433661473}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Body
-  m_TagString: Untagged
+  m_TagString: Entity
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

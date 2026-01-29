@@ -1,11 +1,13 @@
 using System;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class FocusControlManager : MonoBehaviour
 {
     [SerializeField] GameObject gameObjectInputHandler;
     [SerializeField] private InputHandler _inputHandler;
-    
+    [SerializeField] private LayerMask layerMask;
+    [SerializeField] private string targetTag;
     public enum Focus
     {
         Player,
@@ -50,6 +52,20 @@ public class FocusControlManager : MonoBehaviour
 
     private void SetFocusByMouseInput()
     {
-        Debug.Log("SetFocusByMouseInput"); // it works
+        Vector2 mousePosition = Mouse.current.position.ReadValue();
+        Ray ray = Camera.main.ScreenPointToRay(mousePosition);
+        RaycastHit hit;
+
+        if (Physics.Raycast(ray,out hit, Mathf.Infinity, layerMask))
+        {
+            Debug.Log(hit.collider.tag);
+            if (hit.collider.tag == targetTag)
+            {
+                Debug.Log("Clicked on Entity!");
+                // Add your specific action here (e.g., call a method on the hit object)
+                // hit.collider.GetComponent<InteractableObject>().Interact(); 
+            }
+        }
+        
     }
 }
