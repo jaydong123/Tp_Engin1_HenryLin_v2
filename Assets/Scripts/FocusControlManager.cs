@@ -3,7 +3,9 @@ using UnityEngine;
 
 public class FocusControlManager : MonoBehaviour
 {
-
+    [SerializeField] GameObject gameObjectInputHandler;
+    [SerializeField] private InputHandler _inputHandler;
+    
     public enum Focus
     {
         Player,
@@ -14,9 +16,21 @@ public class FocusControlManager : MonoBehaviour
 
     private void Awake()
     {
+        if (!_inputHandler)
+            _inputHandler = gameObjectInputHandler.GetComponent<InputHandler>();
+
         currentFocus = _focus;
     }
     
+    private void OnEnable()
+    {
+        _inputHandler.OnMouseInput += SetFocusByMouseInput;
+    }    
+    
+    private void OnDisable()
+    {
+        _inputHandler.OnMouseInput -= SetFocusByMouseInput;
+    }
     public static event Action<Focus> OnFocusChanged;
     public Focus currentFocus
     {
@@ -33,5 +47,9 @@ public class FocusControlManager : MonoBehaviour
     {
         currentFocus = _focus;
     }
-    
+
+    private void SetFocusByMouseInput()
+    {
+        Debug.Log("SetFocusByMouseInput"); // it works
+    }
 }

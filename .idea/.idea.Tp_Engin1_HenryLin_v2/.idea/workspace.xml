@@ -6,11 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="744358e6-a2d1-46f9-9829-24b18c77ae35" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Tp_Engin1_HenryLin_v2/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Tp_Engin1_HenryLin_v2/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/PlayerMovement.inputactions" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/PlayerMovement.inputactions" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/GameScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/GameScene.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/CameraController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/CameraController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/PlayerInputHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/InputHandler.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/PlayerInputHandler.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/InputHandler.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/PlayerMovement.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/PlayerMovement.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/FocusControlManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/FocusControlManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/InputHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/InputHandler.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -132,7 +131,7 @@
       <workItem from="1769282526794" duration="4650000" />
       <workItem from="1769312110632" duration="2147000" />
       <workItem from="1769487623348" duration="5391000" />
-      <workItem from="1769536536317" duration="10452000" />
+      <workItem from="1769536536317" duration="12750000" />
     </task>
     <servers />
   </component>

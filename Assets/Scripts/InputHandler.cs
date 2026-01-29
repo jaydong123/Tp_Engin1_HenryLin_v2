@@ -7,6 +7,7 @@ public class InputHandler : MonoBehaviour
     public event Action<Vector2> OnMoveInput;
     public event Action OnJumpInput;
     public event Action<Vector2> OnCameraMoveInput;
+    public event Action OnMouseInput;
 
     private PlayerInput _playerInput;
 
@@ -22,6 +23,7 @@ public class InputHandler : MonoBehaviour
         _playerInput.actions["Jump"].performed += OnJumpPerformed;
         _playerInput.actions["Move"].performed += OnCameraMovePerformed;
         _playerInput.actions["Move"].canceled += OnCameraMovePerformed;
+        _playerInput.actions["SelectEntity"].performed += OnSelectEntity;
         FocusControlManager.OnFocusChanged += OnFocusChanged;
     }
     
@@ -49,16 +51,13 @@ public class InputHandler : MonoBehaviour
         OnCameraMoveInput?.Invoke(context.ReadValue<Vector2>());
     }
 
+    public void OnSelectEntity(InputAction.CallbackContext context)
+    {
+        OnMouseInput?.Invoke();
+    }
+
     public void OnFocusChanged(FocusControlManager.Focus focus)
     {
-        // switch(focus)
-        // {
-        //     case FocusControlManager.Focus.Player:
-        //         _playerInput.SwitchCurrentActionMap("Player");
-        //         break;
-        //     case FocusControlManager.Focus.Camera:
-        //         _playerInput.SwitchCurrentActionMap("Camera");
-        //         break;
-        // }
+        
     }
 }
