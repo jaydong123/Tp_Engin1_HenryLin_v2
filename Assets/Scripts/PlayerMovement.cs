@@ -44,14 +44,12 @@ public class PlayerMovement : MonoBehaviour
     private void OnEnable()
     {
         FocusControlManager.OnFocusChanged += OnFocus;
-        // playerInputHandler.OnMoveInput += OnMoveController;
-        // playerInputHandler.OnJumpInput += OnJumpController;
-    }
+   }
 
     private void OnFocus(FocusControlManager.Focus focus)
     {
-        //_focus = focus;
-        if (focus == FocusControlManager.Focus.Player)
+        Debug.Log("OnFocus inside PlayerController");
+        if (focus == _focus)
             SubscribeInput();
         else
             UnsubscribeInput();
@@ -90,7 +88,6 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnMoveController(Vector2 input)
     {
-        //Debug.Log(input.ToString()); //why it never called
         moveDirection = new Vector3(input.x, 0, input.y).normalized;
         if (moveDirection.x > 0)
         {
