@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerInputHandler : MonoBehaviour
+public class InputHandler : MonoBehaviour
 {
     public event Action<Vector2> OnMoveInput;
     public event Action OnJumpInput;

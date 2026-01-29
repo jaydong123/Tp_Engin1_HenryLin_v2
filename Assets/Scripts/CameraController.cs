@@ -7,7 +7,8 @@ public class CameraController : MonoBehaviour
     [SerializeField] private Transform player;
     
     [Header("Camera Settings")]
-    [SerializeField] private PlayerInputHandler _inputHandler;
+    [SerializeField] GameObject gameObjectInputHandler;
+    [SerializeField] private InputHandler _inputHandler;
     [SerializeField] private Vector3 offset = new Vector3(0,5,-10);
     [SerializeField] private Vector3 moveDirection;
     [SerializeField] private float speed = 10f;
@@ -23,7 +24,7 @@ public class CameraController : MonoBehaviour
     private void Awake()
     {
         if (!_inputHandler)
-            _inputHandler = player.GetComponent<PlayerInputHandler>();
+            _inputHandler = gameObjectInputHandler.GetComponent<InputHandler>();
     }
 
     // Update is called once per frame

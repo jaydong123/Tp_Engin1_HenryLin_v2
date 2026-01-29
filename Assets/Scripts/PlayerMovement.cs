@@ -5,7 +5,8 @@ using UnityEngine.InputSystem;
 public class PlayerMovement : MonoBehaviour
 {
     [Header("Reference")]
-    [SerializeField] PlayerInputHandler playerInputHandler;
+    [SerializeField] GameObject gameObjectInputHandler;
+    [SerializeField] InputHandler inputHandler;
     [SerializeField] AnimationHandler animationHandler;
     [SerializeField] BoxCollider playerBoxCollider;
     
@@ -25,8 +26,8 @@ public class PlayerMovement : MonoBehaviour
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
-        if (!playerInputHandler)
-            playerInputHandler = GetComponent<PlayerInputHandler>();
+        if (!inputHandler)
+            inputHandler = gameObjectInputHandler.GetComponent<InputHandler>();
         if (!animationHandler)
             animationHandler = GetComponent<AnimationHandler>();
     }
@@ -58,22 +59,22 @@ public class PlayerMovement : MonoBehaviour
     private void SubscribeInput()
     {
         Debug.Log("Player SUBSCRIBED input");
-        playerInputHandler.OnMoveInput += OnMoveController;
-        playerInputHandler.OnJumpInput += OnJumpController;
+        inputHandler.OnMoveInput += OnMoveController;
+        inputHandler.OnJumpInput += OnJumpController;
     }    
     
     private void UnsubscribeInput()
     {
         Debug.Log("Player UNSUBSCRIBED input");
-        playerInputHandler.OnMoveInput -= OnMoveController;
-        playerInputHandler.OnJumpInput -= OnJumpController;
+        inputHandler.OnMoveInput -= OnMoveController;
+        inputHandler.OnJumpInput -= OnJumpController;
     }
     
     private void OnDisable()
     {
         FocusControlManager.OnFocusChanged -= OnFocus;
-        playerInputHandler.OnMoveInput -= OnMoveController;
-        playerInputHandler.OnJumpInput -= OnJumpController;
+        inputHandler.OnMoveInput -= OnMoveController;
+        inputHandler.OnJumpInput -= OnJumpController;
     }
     
 
