@@ -2,7 +2,7 @@ using System.Net;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement : Entity
 {
     [Header("Reference")]
     [SerializeField] GameObject gameObjectInputHandler;
@@ -21,7 +21,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float moveForce = 200;
     [SerializeField] private Vector3 moveDirection;
     
-    [SerializeField] private FocusControlManager.Focus _focus;
+    //[SerializeField] private FocusControlManager.Focus _focus;
     
     void Awake()
     {
@@ -45,25 +45,25 @@ public class PlayerMovement : MonoBehaviour
     private void OnEnable()
     {
         FocusControlManager.OnFocusChanged += OnFocus;
-   }
+    }
 
-    private void OnFocus(FocusControlManager.Focus focus)
+    protected override void OnFocus(Entity focus)
     {
         Debug.Log("OnFocus inside PlayerController");
-        if (focus == _focus)
+        if (this == focus)
             SubscribeInput();
         else
             UnsubscribeInput();
     }
 
-    private void SubscribeInput()
+    protected override void SubscribeInput()
     {
         Debug.Log("Player SUBSCRIBED input");
         inputHandler.OnMoveInput += OnMoveController;
         inputHandler.OnJumpInput += OnJumpController;
     }    
     
-    private void UnsubscribeInput()
+    protected override void UnsubscribeInput()
     {
         Debug.Log("Player UNSUBSCRIBED input");
         inputHandler.OnMoveInput -= OnMoveController;
@@ -120,4 +120,5 @@ public class PlayerMovement : MonoBehaviour
     {
         return Physics.Raycast(transform.position, Vector3.down, 1.5f, groundLayer);
     }
+    
 }

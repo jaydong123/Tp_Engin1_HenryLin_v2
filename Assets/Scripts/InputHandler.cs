@@ -24,7 +24,6 @@ public class InputHandler : MonoBehaviour
         _playerInput.actions["Move"].performed += OnCameraMovePerformed;
         _playerInput.actions["Move"].canceled += OnCameraMovePerformed;
         _playerInput.actions["SelectEntity"].performed += OnSelectEntity;
-        FocusControlManager.OnFocusChanged += OnFocusChanged;
     }
     
     private void OnDisable()
@@ -34,7 +33,6 @@ public class InputHandler : MonoBehaviour
         _playerInput.actions["Jump"].performed -= OnJumpPerformed;
         _playerInput.actions["Move"].performed -= OnCameraMovePerformed;
         _playerInput.actions["Move"].canceled -= OnCameraMovePerformed;
-        FocusControlManager.OnFocusChanged -= OnFocusChanged;
     }
 
     public void OnMovePerformed(InputAction.CallbackContext context)
@@ -55,9 +53,5 @@ public class InputHandler : MonoBehaviour
     {
         OnMouseInput?.Invoke();
     }
-
-    public void OnFocusChanged(FocusControlManager.Focus focus)
-    {
-        
-    }
+    
 }

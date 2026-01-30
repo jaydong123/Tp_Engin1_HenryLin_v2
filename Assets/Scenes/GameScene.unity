@@ -275,7 +275,6 @@ MonoBehaviour:
   offset: {x: 0, y: 7, z: -20}
   moveDirection: {x: 0, y: 0, z: 0}
   speed: 10
-  _focus: 1
   isFocus: 0
 --- !u!1 &655089588
 GameObject:
@@ -1001,12 +1000,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FocusControlManager
   gameObjectInputHandler: {fileID: 1074098964}
+  _camera: {fileID: 543393832}
   _inputHandler: {fileID: 0}
   layerMask:
     serializedVersion: 2
     m_Bits: 128
   targetTag: Entity
-  _focus: 1
+  _focus: {fileID: 0}
 --- !u!4 &1595122159
 Transform:
   m_ObjectHideFlags: 0

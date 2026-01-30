@@ -5,6 +5,9 @@ using UnityEngine.InputSystem;
 public class FocusControlManager : MonoBehaviour
 {
     [SerializeField] GameObject gameObjectInputHandler;
+    [SerializeField] GameObject _camera;
+    Entity _cameraEntity;
+
     [SerializeField] private InputHandler _inputHandler;
     [SerializeField] private LayerMask layerMask;
     [SerializeField] private string targetTag;
@@ -14,14 +17,20 @@ public class FocusControlManager : MonoBehaviour
         Camera,
         Other,
     }
-    [SerializeField] private Focus _focus;
+    [SerializeField] private Entity _focus;
 
     private void Awake()
     {
         if (!_inputHandler)
             _inputHandler = gameObjectInputHandler.GetComponent<InputHandler>();
+        if (!_cameraEntity)
+            _cameraEntity = _camera.gameObject.GetComponent<Entity>();
+    }
 
-        currentFocus = _focus;
+    private void Start()
+    {
+        currentFocus = _cameraEntity;
+        
     }
     
     private void OnEnable()
@@ -33,8 +42,8 @@ public class FocusControlManager : MonoBehaviour
     {
         _inputHandler.OnMouseInput -= SetFocusByMouseInput;
     }
-    public static event Action<Focus> OnFocusChanged;
-    public Focus currentFocus
+    public static event Action<Entity> OnFocusChanged;
+    public Entity currentFocus
     {
         get => _focus;
         set
@@ -62,10 +71,11 @@ public class FocusControlManager : MonoBehaviour
             if (hit.collider.tag == targetTag)
             {
                 Debug.Log("Clicked on Entity!");
-                // Add your specific action here (e.g., call a method on the hit object)
-                // hit.collider.GetComponent<InteractableObject>().Interact(); 
+                currentFocus = hit.collider.gameObject.GetComponent<Entity>();
+                return;
             }
         }
+        currentFocus = _camera.gameObject.GetComponent<Entity>();
         
     }
 }

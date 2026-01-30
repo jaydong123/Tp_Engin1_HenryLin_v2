@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class CameraController : MonoBehaviour
+public class CameraController : Entity
 {
     [Header("Reference")]
     [SerializeField] private Transform player;
@@ -13,7 +13,7 @@ public class CameraController : MonoBehaviour
     [SerializeField] private Vector3 moveDirection;
     [SerializeField] private float speed = 10f;
     
-    [SerializeField] private FocusControlManager.Focus _focus;
+    //[SerializeField] private FocusControlManager.Focus _focus;
     [SerializeField] private bool isFocus;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -52,23 +52,26 @@ public class CameraController : MonoBehaviour
         FocusControlManager.OnFocusChanged += OnFocus;
     }
     
-    private void OnFocus(FocusControlManager.Focus focus)
+    protected override void OnFocus(Entity focus)
     {
         Debug.Log("OnFocus inside CameraController");
-        if (focus == _focus)
+        if (this == focus)
             SubscribeInput();
         else
+        {
+            player =  focus.transform;
             UnsubscribeInput();
+        }
     }
     
-    private void SubscribeInput()
+    protected override void SubscribeInput()
     {
         Debug.Log("Camera Input Subscribe");
         isFocus = true;
         _inputHandler.OnCameraMoveInput += OnCameraMoveController;
     }    
     
-    private void UnsubscribeInput()
+    protected override void UnsubscribeInput()
     {
         Debug.Log("Camera Input Unsubscribe");
         isFocus = false;
