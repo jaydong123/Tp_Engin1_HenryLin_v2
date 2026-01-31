@@ -7,8 +7,6 @@ public class CameraController : Entity
     [SerializeField] private Transform player;
     
     [Header("Camera Settings")]
-    [SerializeField] GameObject gameObjectInputHandler;
-    [SerializeField] private InputHandler _inputHandler;
     [SerializeField] private Vector3 offset = new Vector3(0,5,-10);
     [SerializeField] private Vector3 moveDirection;
     [SerializeField] private float speed = 10f;
@@ -21,10 +19,9 @@ public class CameraController : Entity
     {
         
     }
-    private void Awake()
+    void Awake()
     {
-        if (!_inputHandler)
-            _inputHandler = gameObjectInputHandler.GetComponent<InputHandler>();
+        
     }
 
     // Update is called once per frame
@@ -54,7 +51,6 @@ public class CameraController : Entity
     
     protected override void OnFocus(Entity focus)
     {
-        Debug.Log("OnFocus inside CameraController");
         if (this == focus)
             SubscribeInput();
         else
@@ -66,28 +62,25 @@ public class CameraController : Entity
     
     protected override void SubscribeInput()
     {
-        Debug.Log("Camera Input Subscribe");
         isFocus = true;
-        _inputHandler.OnCameraMoveInput += OnCameraMoveController;
+        inputHandler.OnCameraMoveInput += OnCameraMoveController;
     }    
     
     protected override void UnsubscribeInput()
     {
-        Debug.Log("Camera Input Unsubscribe");
         isFocus = false;
-        _inputHandler.OnCameraMoveInput -= OnCameraMoveController;
+        inputHandler.OnCameraMoveInput -= OnCameraMoveController;
     }
     
     private void OnDisable()
     {
         FocusControlManager.OnFocusChanged -= OnFocus;
-        _inputHandler.OnCameraMoveInput -= OnCameraMoveController;
+        inputHandler.OnCameraMoveInput -= OnCameraMoveController;
     }
 
     private void OnCameraMoveController(Vector2 input)
     {
         //only if it on focus
-        Debug.Log("Camera Move Input");
         moveDirection = new Vector3(input.x, 0, 0);
     }
     

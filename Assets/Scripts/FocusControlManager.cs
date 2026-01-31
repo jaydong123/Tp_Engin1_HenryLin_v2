@@ -4,25 +4,17 @@ using UnityEngine.InputSystem;
 
 public class FocusControlManager : MonoBehaviour
 {
-    [SerializeField] GameObject gameObjectInputHandler;
     [SerializeField] GameObject _camera;
     Entity _cameraEntity;
 
-    [SerializeField] private InputHandler _inputHandler;
+    private InputHandler inputHandler => RefManager.Instance.inputHandler;
     [SerializeField] private LayerMask layerMask;
     [SerializeField] private string targetTag;
-    public enum Focus
-    {
-        Player,
-        Camera,
-        Other,
-    }
+
     [SerializeField] private Entity _focus;
 
     private void Awake()
     {
-        if (!_inputHandler)
-            _inputHandler = gameObjectInputHandler.GetComponent<InputHandler>();
         if (!_cameraEntity)
             _cameraEntity = _camera.gameObject.GetComponent<Entity>();
     }
@@ -35,12 +27,12 @@ public class FocusControlManager : MonoBehaviour
     
     private void OnEnable()
     {
-        _inputHandler.OnMouseInput += SetFocusByMouseInput;
+        inputHandler.OnMouseInput += SetFocusByMouseInput;
     }    
     
     private void OnDisable()
     {
-        _inputHandler.OnMouseInput -= SetFocusByMouseInput;
+        inputHandler.OnMouseInput -= SetFocusByMouseInput;
     }
     public static event Action<Entity> OnFocusChanged;
     public Entity currentFocus
@@ -70,7 +62,6 @@ public class FocusControlManager : MonoBehaviour
             Debug.Log(hit.collider.tag);
             if (hit.collider.tag == targetTag)
             {
-                Debug.Log("Clicked on Entity!");
                 currentFocus = hit.collider.gameObject.GetComponent<Entity>();
                 return;
             }

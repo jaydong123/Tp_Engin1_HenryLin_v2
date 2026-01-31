@@ -5,8 +5,6 @@ using UnityEngine.InputSystem;
 public class PlayerMovement : Entity
 {
     [Header("Reference")]
-    [SerializeField] GameObject gameObjectInputHandler;
-    [SerializeField] InputHandler inputHandler;
     [SerializeField] AnimationHandler animationHandler;
     [SerializeField] BoxCollider playerBoxCollider;
     
@@ -26,8 +24,6 @@ public class PlayerMovement : Entity
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
-        if (!inputHandler)
-            inputHandler = gameObjectInputHandler.GetComponent<InputHandler>();
         if (!animationHandler)
             animationHandler = GetComponent<AnimationHandler>();
     }
@@ -49,7 +45,6 @@ public class PlayerMovement : Entity
 
     protected override void OnFocus(Entity focus)
     {
-        Debug.Log("OnFocus inside PlayerController");
         if (this == focus)
             SubscribeInput();
         else
@@ -58,14 +53,12 @@ public class PlayerMovement : Entity
 
     protected override void SubscribeInput()
     {
-        Debug.Log("Player SUBSCRIBED input");
         inputHandler.OnMoveInput += OnMoveController;
         inputHandler.OnJumpInput += OnJumpController;
     }    
     
     protected override void UnsubscribeInput()
     {
-        Debug.Log("Player UNSUBSCRIBED input");
         inputHandler.OnMoveInput -= OnMoveController;
         inputHandler.OnJumpInput -= OnJumpController;
     }
