@@ -8,6 +8,7 @@ public class InputHandler : MonoBehaviour
     public event Action OnJumpInput;
     public event Action<Vector2> OnCameraMoveInput;
     public event Action OnMouseInput;
+    public event Action OnAttackInput;
 
     private PlayerInput _playerInput;
 
@@ -23,6 +24,7 @@ public class InputHandler : MonoBehaviour
         _playerInput.actions["Jump"].performed += OnJumpPerformed;
         _playerInput.actions["Move"].performed += OnCameraMovePerformed;
         _playerInput.actions["Move"].canceled += OnCameraMovePerformed;
+        _playerInput.actions["Attack"].performed += OnAttackPerformed;
         _playerInput.actions["SelectEntity"].performed += OnSelectEntity;
     }
     
@@ -33,6 +35,8 @@ public class InputHandler : MonoBehaviour
         _playerInput.actions["Jump"].performed -= OnJumpPerformed;
         _playerInput.actions["Move"].performed -= OnCameraMovePerformed;
         _playerInput.actions["Move"].canceled -= OnCameraMovePerformed;
+        _playerInput.actions["Attack"].performed -= OnAttackPerformed;
+        _playerInput.actions["SelectEntity"].performed -= OnSelectEntity;
     }
 
     public void OnMovePerformed(InputAction.CallbackContext context)
@@ -52,6 +56,11 @@ public class InputHandler : MonoBehaviour
     public void OnSelectEntity(InputAction.CallbackContext context)
     {
         OnMouseInput?.Invoke();
+    }
+
+    public void OnAttackPerformed(InputAction.CallbackContext context)
+    {
+        OnAttackInput?.Invoke();
     }
     
 }

@@ -1638,6 +1638,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 5704919581727484980, guid: ed87432fd51fb4240919c4df0aec15b5, type: 3}
+      propertyPath: m_ExcludeLayers.m_Bits
+      value: 119
+      objectReference: {fileID: 0}
+    - target: {fileID: 5704919581727484980, guid: ed87432fd51fb4240919c4df0aec15b5, type: 3}
+      propertyPath: m_IncludeLayers.m_Bits
+      value: 128
+      objectReference: {fileID: 0}
     - target: {fileID: 6639406623638610423, guid: ed87432fd51fb4240919c4df0aec15b5, type: 3}
       propertyPath: cam
       value: 
