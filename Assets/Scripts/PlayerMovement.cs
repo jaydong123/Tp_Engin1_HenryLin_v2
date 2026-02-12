@@ -15,14 +15,7 @@ public class PlayerMovement : Entity
     
     [SerializeField] private Camera cam;
     private Rigidbody rb;
-    [SerializeField] private float speed = 5f;
-    [SerializeField] private float maxSpeed = 10f;
-    [SerializeField] private float acceleration = 15f;
-    [SerializeField] private float deceleration = 10f;
-    [SerializeField] private float jumpForce = 500f;
-    [SerializeField] private float moveForce = 200f;
-    [SerializeField] private Vector3 moveDirection;
-
+    public Vector3 moveDirection;
     [SerializeField] private BoxCollider hitEntityCollider;
     private bool IsHitEntityColliderEnabled = false;
 
@@ -87,6 +80,7 @@ public class PlayerMovement : Entity
         FocusControlManager.OnFocusChanged -= OnFocus;
         inputHandler.OnMoveInput -= OnMoveController;
         inputHandler.OnJumpInput -= OnJumpController;
+        inputHandler.OnAttackInput -= OnAttackController;
     }
     
 
@@ -95,16 +89,16 @@ public class PlayerMovement : Entity
         Vector3 velocity = rb.linearVelocity;
         if (moveDirection != Vector3.zero)
         {
-            if (Mathf.Abs(rb.linearVelocity.x) < maxSpeed)
+            if (Mathf.Abs(rb.linearVelocity.x) < entityData.maxSpeed)
             {
-                Vector3 maxVelocity = moveDirection.normalized * maxSpeed;
+                Vector3 maxVelocity = moveDirection.normalized * entityData.maxSpeed;
                 rb.AddForce(maxVelocity * Time.deltaTime, ForceMode.Impulse);
                 //rb.AddForce(moveDirection * (speed * Time.deltaTime) , ForceMode.Impulse);
             }
         }
         else 
         {
-            Vector3 newCoord = Vector3.MoveTowards(velocity, Vector3.zero, deceleration * Time.fixedDeltaTime);
+            Vector3 newCoord = Vector3.MoveTowards(velocity, Vector3.zero, entityData.deceleration * Time.fixedDeltaTime);
             rb.linearVelocity = new Vector3(newCoord.x, velocity.y, newCoord.z);   
         }
     }
@@ -138,7 +132,7 @@ public class PlayerMovement : Entity
         if (IsGrounded())
         {
             //Debug.Log("Jump");
-            rb.AddForce(new Vector3(0, jumpForce, 0), ForceMode.Force);
+            rb.AddForce(new Vector3(0, entityData.jumpForce, 0), ForceMode.Force);
             animationHandler.IsJumping();
             return;
         }
@@ -146,8 +140,12 @@ public class PlayerMovement : Entity
 
     private void OnAttackController()
     {
-        Debug.Log("On AttackController");
-        animationHandler.IsAttacking();
+        Debug.Log("OnAttackController");
+        if (!animationHandler.AttackState())
+        {
+            animationHandler.IsAttacking();
+            animationHandler.ToggleAttack(true);
+        }
     }
 
     private bool IsGrounded()
@@ -167,6 +165,7 @@ public class PlayerMovement : Entity
         Debug.Log("Disable Hit Entity Collider");
         IsHitEntityColliderEnabled = false;
         hitEntityCollider.enabled = false;
+        animationHandler.ToggleAttack(false);
     }
 
     private void OnTriggerEnter(Collider other)

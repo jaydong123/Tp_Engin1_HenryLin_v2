@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,7 +9,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] private List<GameObject> entityPrefabPool;
     [SerializeField] private GameObject baseGameObject;
     public InputHandler inputHandler;
-    private Coroutine coroutine;
+    public EntityData entityData;
+    private IEnumerator coroutine;
+    private int entityCount = 0;
+    private int entityCap = 50;
+    
     [SerializeField] private Entity testEntity;
     private void Awake()
     {
@@ -18,18 +23,32 @@ public class GameManager : MonoBehaviour
         {
             Destroy(this);
         }
-
-        //coroutine = SpawnEntity(testEntity);
+        
+        StartCoroutine(nameof(SpawnEntityEndlessly),0.01f);
     }
 
     private void SpawnEntity(Entity entity)
     {
-        Instantiate(entity, baseGameObject.transform.position - Vector3.left * 3f, entity.transform.rotation);
+        if (entityCount < entityCap)
+        {
+            Instantiate(entity, baseGameObject.transform.position - Vector3.left * 3f, entity.transform.rotation);
+            entityCount++;
+        }
+    }
+
+    private IEnumerator SpawnEntityEndlessly(float timeInterval)
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(timeInterval);
+            SpawnEntity(testEntity);
+        }
     }
     
     [ContextMenu("Spawn Entity")]
     void SpawnEntity()
     {
+        //Entity e = testEntity;
         SpawnEntity(testEntity);
     }
 }

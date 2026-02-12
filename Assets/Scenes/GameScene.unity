@@ -819,7 +819,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1277751263529982604, guid: ed87432fd51fb4240919c4df0aec15b5, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2255710941131024474, guid: ed87432fd51fb4240919c4df0aec15b5, type: 3}
       propertyPath: m_Enabled
@@ -923,6 +923,7 @@ MonoBehaviour:
   - {fileID: 1277751263529982604, guid: ed87432fd51fb4240919c4df0aec15b5, type: 3}
   baseGameObject: {fileID: 1579264817}
   inputHandler: {fileID: 1074098965}
+  entityData: {fileID: 11400000, guid: a164974a4250b3c44997baf1fe8c5b3c, type: 2}
   testEntity: {fileID: 6639406623638610423, guid: ed87432fd51fb4240919c4df0aec15b5, type: 3}
 --- !u!1001 &1579264816
 PrefabInstance:
@@ -1613,7 +1614,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1277751263529982604, guid: ed87432fd51fb4240919c4df0aec15b5, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5704919581727484980, guid: ed87432fd51fb4240919c4df0aec15b5, type: 3}
       propertyPath: m_ExcludeLayers.m_Bits

@@ -9,9 +9,11 @@ public class AnimationHandler : MonoBehaviour
     private static readonly int JumpHash = Animator.StringToHash("Jump");
     private static readonly int AttackHash = Animator.StringToHash("Attack");
     private static readonly int SpeedHash = Animator.StringToHash("Speed");
+    private static readonly int IsAttackingHash = Animator.StringToHash("IsAttacking");
     
     [SerializeField] private Animator animator;
 
+    
     private void Awake()
     {
         if(!animator)
@@ -45,5 +47,14 @@ public class AnimationHandler : MonoBehaviour
     {
         animator.SetFloat(SpeedHash, speed);
     }
-    
+
+    public bool AttackState()
+    {
+        return animator.GetBool(IsAttackingHash);
+    }
+
+    public void ToggleAttack(bool b)
+    {
+        animator.SetBool(IsAttackingHash, b);
+    }
 }
