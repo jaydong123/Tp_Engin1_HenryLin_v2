@@ -119,51 +119,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &18671747
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 18671749}
-  - component: {fileID: 18671748}
-  m_Layer: 0
-  m_Name: RefManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &18671748
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 18671747}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a0709f5d2de33e245853f7148e1de7da, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::RefManager
-  inputHandler: {fileID: 1074098965}
---- !u!4 &18671749
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 18671747}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -21.96626, y: 1.63738, z: -5}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &543393832
 GameObject:
   m_ObjectHideFlags: 0
@@ -296,7 +251,7 @@ Transform:
   m_GameObject: {fileID: 543393832}
   serializedVersion: 2
   m_LocalRotation: {x: 0.28786197, y: 0, z: 0, w: 0.95767194}
-  m_LocalPosition: {x: -20, y: 8.16, z: -20}
+  m_LocalPosition: {x: -25.01, y: 12.73, z: -20}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -315,7 +270,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CameraController
   player: {fileID: 1989957310}
-  offset: {x: 0, y: 7, z: -20}
+  offset: {x: 0, y: 10, z: -20}
   moveDirection: {x: 0, y: 0, z: 0}
   speed: 10
   isFocus: 0
@@ -501,6 +456,10 @@ PrefabInstance:
     - target: {fileID: 1277751263529982604, guid: ed87432fd51fb4240919c4df0aec15b5, type: 3}
       propertyPath: m_Name
       value: Player (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1277751263529982604, guid: ed87432fd51fb4240919c4df0aec15b5, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2255710941131024474, guid: ed87432fd51fb4240919c4df0aec15b5, type: 3}
       propertyPath: m_Enabled
@@ -858,6 +817,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 1277751263529982604, guid: ed87432fd51fb4240919c4df0aec15b5, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2255710941131024474, guid: ed87432fd51fb4240919c4df0aec15b5, type: 3}
       propertyPath: m_Enabled
       value: 0
@@ -956,6 +919,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eefdd62a2b60fe549943491f37622c6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
+  entityPrefabPool:
+  - {fileID: 1277751263529982604, guid: ed87432fd51fb4240919c4df0aec15b5, type: 3}
+  baseGameObject: {fileID: 1579264817}
+  inputHandler: {fileID: 1074098965}
+  testEntity: {fileID: 6639406623638610423, guid: ed87432fd51fb4240919c4df0aec15b5, type: 3}
 --- !u!1001 &1579264816
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1013,6 +981,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e175ed34cd082234abf75094d5f5abb0, type: 3}
+--- !u!1 &1579264817 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2626777097609373125, guid: e175ed34cd082234abf75094d5f5abb0, type: 3}
+  m_PrefabInstance: {fileID: 1579264816}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1595122157
 GameObject:
   m_ObjectHideFlags: 0
@@ -1638,6 +1611,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 1277751263529982604, guid: ed87432fd51fb4240919c4df0aec15b5, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5704919581727484980, guid: ed87432fd51fb4240919c4df0aec15b5, type: 3}
       propertyPath: m_ExcludeLayers.m_Bits
       value: 119
@@ -1665,12 +1642,11 @@ SceneRoots:
   m_Roots:
   - {fileID: 543393836}
   - {fileID: 655089591}
-  - {fileID: 949987303}
+  - {fileID: 1382789208}
+  - {fileID: 1074098966}
+  - {fileID: 1595122159}
   - {fileID: 2238798186052087070}
   - {fileID: 1148671180}
   - {fileID: 756223988}
   - {fileID: 1579264816}
-  - {fileID: 1382789208}
-  - {fileID: 1595122159}
-  - {fileID: 1074098966}
-  - {fileID: 18671749}
+  - {fileID: 949987303}

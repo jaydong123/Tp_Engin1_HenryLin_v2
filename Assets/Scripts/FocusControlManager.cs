@@ -7,7 +7,7 @@ public class FocusControlManager : MonoBehaviour
     [SerializeField] GameObject _camera;
     Entity _cameraEntity;
 
-    private InputHandler inputHandler => RefManager.Instance.inputHandler;
+    private InputHandler inputHandler => GameManager.Instance.inputHandler;
     [SerializeField] private LayerMask layerMask;
     [SerializeField] private string targetTag;
 

@@ -7,7 +7,7 @@ public class CameraController : Entity
     [SerializeField] private Transform player;
     
     [Header("Camera Settings")]
-    [SerializeField] private Vector3 offset = new Vector3(0,5,-10);
+    [SerializeField] private Vector3 offset = new Vector3(0,30,-10);
     [SerializeField] private Vector3 moveDirection;
     [SerializeField] private float speed = 10f;
     

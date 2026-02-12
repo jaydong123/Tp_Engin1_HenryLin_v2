@@ -15,10 +15,12 @@ public class PlayerMovement : Entity
     
     [SerializeField] private Camera cam;
     private Rigidbody rb;
-    [SerializeField] private float speed = 5;
-    [SerializeField] private float maxSpeed = 10;
-    [SerializeField] private float jumpForce = 500;
-    [SerializeField] private float moveForce = 200;
+    [SerializeField] private float speed = 5f;
+    [SerializeField] private float maxSpeed = 10f;
+    [SerializeField] private float acceleration = 15f;
+    [SerializeField] private float deceleration = 10f;
+    [SerializeField] private float jumpForce = 500f;
+    [SerializeField] private float moveForce = 200f;
     [SerializeField] private Vector3 moveDirection;
 
     [SerializeField] private BoxCollider hitEntityCollider;
@@ -90,10 +92,20 @@ public class PlayerMovement : Entity
 
     private void UpdatePosition()
     {
-        if (Mathf.Abs(rb.linearVelocity.x) < maxSpeed)
+        Vector3 velocity = rb.linearVelocity;
+        if (moveDirection != Vector3.zero)
         {
-            rb.AddForce(moveDirection * (speed * Time.deltaTime), ForceMode.Impulse);
-
+            if (Mathf.Abs(rb.linearVelocity.x) < maxSpeed)
+            {
+                Vector3 maxVelocity = moveDirection.normalized * maxSpeed;
+                rb.AddForce(maxVelocity * Time.deltaTime, ForceMode.Impulse);
+                //rb.AddForce(moveDirection * (speed * Time.deltaTime) , ForceMode.Impulse);
+            }
+        }
+        else 
+        {
+            Vector3 newCoord = Vector3.MoveTowards(velocity, Vector3.zero, deceleration * Time.fixedDeltaTime);
+            rb.linearVelocity = new Vector3(newCoord.x, velocity.y, newCoord.z);   
         }
     }
 
