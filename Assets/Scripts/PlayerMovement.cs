@@ -7,16 +7,16 @@ using UnityEngine.InputSystem;
 public class PlayerMovement : Entity
 {
     [Header("Reference")]
-    [SerializeField] AnimationHandler animationHandler;
-    [SerializeField] BoxCollider playerBoxCollider;
+    [SerializeField] private AnimationHandler animationHandler;
+    [SerializeField] private BoxCollider playerBoxCollider;
+    [SerializeField] private BoxCollider hitEntityCollider;
+    [SerializeField] private Rigidbody rb;
+    [SerializeField] private Camera cam;
     
     [SerializeField] LayerMask groundLayer;
     
     
-    [SerializeField] private Camera cam;
-    private Rigidbody rb;
     public Vector3 moveDirection;
-    [SerializeField] private BoxCollider hitEntityCollider;
     private bool IsHitEntityColliderEnabled = false;
 
     [Header("Particle System")]
@@ -29,7 +29,8 @@ public class PlayerMovement : Entity
             animationHandler = GetComponent<AnimationHandler>();
         if (!hitEntityCollider)
             hitEntityCollider = GetComponent<BoxCollider>();
-        
+        fraction = Fraction.Player;
+
     }
 
     private void Start()

@@ -8,13 +8,15 @@ public class GameManager : MonoBehaviour
     [Header("References")]
     [SerializeField] private List<GameObject> entityPrefabPool;
     [SerializeField] private GameObject baseGameObject;
+    [SerializeField] private GameObject enemyBaseGameObject;
     public InputHandler inputHandler;
     public EntityData entityData;
     private IEnumerator coroutine;
     private int entityCount = 0;
     private int entityCap = 50;
     
-    [SerializeField] private Entity testEntity;
+    [SerializeField] private PlayerMovement testEntity;
+    [SerializeField] private Enemy enemyEntity;
     private void Awake()
     {
         if (Instance == null)
@@ -31,7 +33,10 @@ public class GameManager : MonoBehaviour
     {
         if (entityCount < entityCap)
         {
-            Instantiate(entity, baseGameObject.transform.position - Vector3.left * 3f, entity.transform.rotation);
+            if (entity.fraction == Entity.Fraction.Player)
+                Instantiate(entity, baseGameObject.transform.position - Vector3.left * 3f, entity.transform.rotation);
+            else
+                Instantiate(entity, enemyBaseGameObject.transform.position - Vector3.right * 3f, entity.transform.rotation);
             entityCount++;
         }
     }
@@ -41,7 +46,8 @@ public class GameManager : MonoBehaviour
         while (true)
         {
             yield return new WaitForSeconds(timeInterval);
-            SpawnEntity(testEntity);
+            SpawnEntity(entityPrefabPool[0].GetComponent<Entity>());
+            SpawnEntity(entityPrefabPool[1].GetComponent<Entity>());
         }
     }
     
@@ -51,4 +57,5 @@ public class GameManager : MonoBehaviour
         //Entity e = testEntity;
         SpawnEntity(testEntity);
     }
+
 }

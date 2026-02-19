@@ -269,6 +269,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 289740a68d2b18742a18c6ad12e9236b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CameraController
+  fraction: 0
   player: {fileID: 1989957310}
   offset: {x: 0, y: 10, z: -20}
   moveDirection: {x: 0, y: 0, z: 0}
@@ -923,9 +924,11 @@ MonoBehaviour:
   - {fileID: 1277751263529982604, guid: 6a043bc9a759f1248938b9403f119dc4, type: 3}
   - {fileID: 1277751263529982604, guid: ed87432fd51fb4240919c4df0aec15b5, type: 3}
   baseGameObject: {fileID: 1579264817}
+  enemyBaseGameObject: {fileID: 4761186105548052953, guid: 9c61b8bab1d486b41b4dc2c3c612358b, type: 3}
   inputHandler: {fileID: 1074098965}
   entityData: {fileID: 11400000, guid: a164974a4250b3c44997baf1fe8c5b3c, type: 2}
   testEntity: {fileID: 6639406623638610423, guid: 6a043bc9a759f1248938b9403f119dc4, type: 3}
+  enemyEntity: {fileID: 0}
 --- !u!1001 &1579264816
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1048,7 +1051,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1115431618898974537, guid: ed87432fd51fb4240919c4df0aec15b5, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -24.741913
+      value: 12.05
       objectReference: {fileID: 0}
     - target: {fileID: 1115431618898974537, guid: ed87432fd51fb4240919c4df0aec15b5, type: 3}
       propertyPath: m_LocalPosition.y
