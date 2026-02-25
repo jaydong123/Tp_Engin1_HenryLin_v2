@@ -876,6 +876,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ed87432fd51fb4240919c4df0aec15b5, type: 3}
+--- !u!1 &1203476812 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4761186105548052953, guid: 9c61b8bab1d486b41b4dc2c3c612358b, type: 3}
+  m_PrefabInstance: {fileID: 2159126511916157819}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1382789207
 GameObject:
   m_ObjectHideFlags: 0
@@ -924,11 +929,11 @@ MonoBehaviour:
   - {fileID: 1277751263529982604, guid: 6a043bc9a759f1248938b9403f119dc4, type: 3}
   - {fileID: 1277751263529982604, guid: ed87432fd51fb4240919c4df0aec15b5, type: 3}
   baseGameObject: {fileID: 1579264817}
-  enemyBaseGameObject: {fileID: 4761186105548052953, guid: 9c61b8bab1d486b41b4dc2c3c612358b, type: 3}
+  enemyBaseGameObject: {fileID: 1203476812}
   inputHandler: {fileID: 1074098965}
   entityData: {fileID: 11400000, guid: a164974a4250b3c44997baf1fe8c5b3c, type: 2}
   testEntity: {fileID: 6639406623638610423, guid: 6a043bc9a759f1248938b9403f119dc4, type: 3}
-  enemyEntity: {fileID: 0}
+  enemyEntity: {fileID: 885932015759671542, guid: ed87432fd51fb4240919c4df0aec15b5, type: 3}
 --- !u!1001 &1579264816
 PrefabInstance:
   m_ObjectHideFlags: 0

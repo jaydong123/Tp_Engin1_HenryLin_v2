@@ -6,13 +6,18 @@ public class Enemy : Entity
     [SerializeField] private BoxCollider playerBoxCollider;
     [SerializeField] private Rigidbody rb;
     [SerializeField] private BoxCollider hitEntityCollider;
+    [SerializeField] private EntityUIHandler entityUIHandler;
+    
     private void Awake()
     {
-        rb = GetComponent<Rigidbody>();
+        if (!rb)
+            rb = GetComponent<Rigidbody>();
         if (!animationHandler)
             animationHandler = GetComponent<AnimationHandler>();
         if (!hitEntityCollider)
             hitEntityCollider = GetComponent<BoxCollider>();
+        if (!entityUIHandler)
+            entityUIHandler = GetComponent<EntityUIHandler>();
 
         fraction = Fraction.Enemy;
         transform.rotation = new  Quaternion(0, 180, 0, 0);

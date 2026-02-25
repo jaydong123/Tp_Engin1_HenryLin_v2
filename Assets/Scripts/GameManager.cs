@@ -26,7 +26,7 @@ public class GameManager : MonoBehaviour
             Destroy(this);
         }
         
-        StartCoroutine(nameof(SpawnEntityEndlessly),1f);
+        StartCoroutine(nameof(SpawnEntityEndlessly),5f);
     }
 
     private void SpawnEntity(Entity entity)

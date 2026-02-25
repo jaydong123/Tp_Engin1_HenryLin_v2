@@ -1,8 +1,8 @@
 using System;
 using System.Net;
-using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class PlayerMovement : Entity
 {
@@ -12,23 +12,26 @@ public class PlayerMovement : Entity
     [SerializeField] private BoxCollider hitEntityCollider;
     [SerializeField] private Rigidbody rb;
     [SerializeField] private Camera cam;
+    [SerializeField] private EntityUIHandler entityUIHandler;
     
     [SerializeField] LayerMask groundLayer;
     
-    
     public Vector3 moveDirection;
     private bool IsHitEntityColliderEnabled = false;
-
+    
     [Header("Particle System")]
     [SerializeField] private ParticleSystem ps;
     
-    void Awake()
+    protected void Awake()
     {
-        rb = GetComponent<Rigidbody>();
+        if (!rb)
+            rb = GetComponent<Rigidbody>();
         if (!animationHandler)
             animationHandler = GetComponent<AnimationHandler>();
         if (!hitEntityCollider)
             hitEntityCollider = GetComponent<BoxCollider>();
+        if (!entityUIHandler)
+            entityUIHandler = GetComponent<EntityUIHandler>();
         fraction = Fraction.Player;
 
     }
@@ -36,6 +39,7 @@ public class PlayerMovement : Entity
     private void Start()
     {
         hitEntityCollider.enabled = false;
+        SetMaxHealth(maxhealth);
     }
     // Update is called once per frame
     void Update()
@@ -83,7 +87,7 @@ public class PlayerMovement : Entity
         inputHandler.OnJumpInput -= OnJumpController;
         inputHandler.OnAttackInput -= OnAttackController;
     }
-    
+
 
     private void UpdatePosition()
     {
@@ -172,7 +176,7 @@ public class PlayerMovement : Entity
     private void OnTriggerEnter(Collider other)
     {
         Debug.Log("OnTriggerEnter");
-        if (other.gameObject.tag == "Entity" && IsHitEntityColliderEnabled)
+        if (IsHitEntityColliderEnabled && other.CompareTag("Entity"))
         {
             Debug.Log("Bonk");
             DisableHitEntityCollider();
