@@ -4,11 +4,10 @@ using UnityEngine;
 public abstract class Entity : MonoBehaviour
 {
     [Header("Reference")]
-    //[SerializeField] protected GameObject gameObjectInputHandler;
+    [SerializeField] protected AudioSource audioSource;
     protected InputHandler inputHandler => GameManager.Instance.inputHandler;
     
     protected EntityData entityData => GameManager.Instance.entityData;
-    
     public enum Fraction
     {
         Player,

@@ -180,6 +180,7 @@ public class PlayerMovement : Entity
         {
             Debug.Log("Bonk");
             DisableHitEntityCollider();
+            GameManager.Instance.audioHandler.PlayEntityDamagedSound(hitEntityCollider.bounds.center);
         }
     }
 }

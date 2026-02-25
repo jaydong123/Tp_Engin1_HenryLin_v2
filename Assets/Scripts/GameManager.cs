@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject baseGameObject;
     [SerializeField] private GameObject enemyBaseGameObject;
     public InputHandler inputHandler;
+    public AudioHandler audioHandler;
     public EntityData entityData;
     private IEnumerator coroutine;
     private int entityCount = 0;
