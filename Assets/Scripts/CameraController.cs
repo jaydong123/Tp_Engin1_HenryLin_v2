@@ -15,13 +15,13 @@ public class CameraController : Entity
     [SerializeField] private bool isFocus;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    protected void Awake()
     {
-        
+        base.Awake();
     }
-    void Awake()
+    protected void Start()
     {
-        
+        GameManager.Instance.audioHandler.PlayBGM(audioSource);
     }
 
     // Update is called once per frame

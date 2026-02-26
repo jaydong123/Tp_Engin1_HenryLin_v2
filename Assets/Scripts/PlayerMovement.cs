@@ -143,7 +143,6 @@ public class PlayerMovement : Entity
 
     private void OnAttackController()
     {
-        Debug.Log("OnAttackController");
         if (Time.time > nextAttack)
         {
             nextAttack = Time.time + hitRate;   
@@ -162,14 +161,12 @@ public class PlayerMovement : Entity
 
     public void EnableHitEntityCollider()
     {
-        Debug.Log("Enable Hit Entity Collider");
         IsHitEntityColliderEnabled = true;
         hitEntityCollider.enabled = true;
     }
     
     public void DisableHitEntityCollider()
     {
-        Debug.Log("Disable Hit Entity Collider");
         IsHitEntityColliderEnabled = false;
         hitEntityCollider.enabled = false;
         animationHandler.ToggleAttack(false);
@@ -177,7 +174,6 @@ public class PlayerMovement : Entity
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("OnTriggerEnter");
         if (IsHitEntityColliderEnabled && other.TryGetComponent<Enemy>(out Enemy enemy))
         {
             Debug.Log("Bonk");

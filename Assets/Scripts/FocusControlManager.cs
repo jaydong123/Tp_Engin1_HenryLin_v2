@@ -58,8 +58,7 @@ public class FocusControlManager : MonoBehaviour
         {
             return;
         }
-
-        Debug.Log("SetFocusByMouseInput");
+        
         Vector2 mousePosition = Mouse.current.position.ReadValue();
         Ray ray = Camera.main.ScreenPointToRay(mousePosition);
         RaycastHit hit;

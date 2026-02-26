@@ -18,8 +18,8 @@ public class AudioHandler : MonoBehaviour
     
     public void PlayBGM(AudioSource audioSource)
     {
-        if (audioSource.isPlaying)
-            return;
+        //if (audioSource.isPlaying)
+            //return;
         audioSource.clip = bgm;
         audioSource.loop = true;
         audioSource.Play();
