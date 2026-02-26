@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
 public class FocusControlManager : MonoBehaviour
@@ -53,6 +54,12 @@ public class FocusControlManager : MonoBehaviour
 
     private void SetFocusByMouseInput()
     {
+        if (EventSystem.current.IsPointerOverGameObject())
+        {
+            return;
+        }
+
+        Debug.Log("SetFocusByMouseInput");
         Vector2 mousePosition = Mouse.current.position.ReadValue();
         Ray ray = Camera.main.ScreenPointToRay(mousePosition);
         RaycastHit hit;

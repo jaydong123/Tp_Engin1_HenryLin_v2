@@ -17,8 +17,16 @@ public abstract class Entity : MonoBehaviour
     
     public float maxhealth = 100;
     [SerializeField] protected float health;
+    [SerializeField] protected float velocityX;
     public event Action<float> OnHealthChanged;
+    public event Action<float> OnVelocityChanged;
     public Fraction fraction;
+
+    protected virtual void Awake()
+    {
+        if (!audioSource)
+            audioSource = GetComponent<AudioSource>();
+    }
 
     protected void Start()
     {
@@ -32,6 +40,16 @@ public abstract class Entity : MonoBehaviour
         {
             health = value;
             OnHealthChanged?.Invoke(health);
+        }
+    }
+
+    public float CurrentVelocityX
+    {
+        get => velocityX;
+        set
+        {
+            velocityX = value;
+            OnVelocityChanged?.Invoke(velocityX);
         }
     }
 

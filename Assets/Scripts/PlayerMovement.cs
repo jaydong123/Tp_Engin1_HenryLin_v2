@@ -12,26 +12,26 @@ public class PlayerMovement : Entity
     [SerializeField] private BoxCollider hitEntityCollider;
     [SerializeField] private Rigidbody rb;
     [SerializeField] private Camera cam;
-    [SerializeField] private EntityUIHandler entityUIHandler;
     
     [SerializeField] LayerMask groundLayer;
     
     public Vector3 moveDirection;
     private bool IsHitEntityColliderEnabled = false;
-    
+    private float hitRate = 1f;
+    private float nextAttack;
+
     [Header("Particle System")]
     [SerializeField] private ParticleSystem ps;
     
-    protected void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         if (!rb)
             rb = GetComponent<Rigidbody>();
         if (!animationHandler)
             animationHandler = GetComponent<AnimationHandler>();
         if (!hitEntityCollider)
             hitEntityCollider = GetComponent<BoxCollider>();
-        if (!entityUIHandler)
-            entityUIHandler = GetComponent<EntityUIHandler>();
         fraction = Fraction.Player;
 
     }
@@ -92,6 +92,7 @@ public class PlayerMovement : Entity
     private void UpdatePosition()
     {
         Vector3 velocity = rb.linearVelocity;
+        CurrentVelocityX = velocity.x;
         if (moveDirection != Vector3.zero)
         {
             if (Mathf.Abs(rb.linearVelocity.x) < entityData.maxSpeed)
@@ -126,9 +127,6 @@ public class PlayerMovement : Entity
             transform.rotation = new Quaternion(0, 180, 0, 0);
 
         }
-        //animationHandler.IsWalking();
-        //plays animation within blend tree depending on speed
-        //animationHandler.SetSpeed(rb.linearVelocity.x);
     }
     
     
@@ -146,10 +144,14 @@ public class PlayerMovement : Entity
     private void OnAttackController()
     {
         Debug.Log("OnAttackController");
-        if (!animationHandler.AttackState())
+        if (Time.time > nextAttack)
         {
-            animationHandler.IsAttacking();
-            animationHandler.ToggleAttack(true);
+            nextAttack = Time.time + hitRate;   
+            if (!animationHandler.AttackState())
+            {
+                animationHandler.IsAttacking();
+                animationHandler.ToggleAttack(true);
+            }
         }
     }
 
@@ -176,11 +178,12 @@ public class PlayerMovement : Entity
     private void OnTriggerEnter(Collider other)
     {
         Debug.Log("OnTriggerEnter");
-        if (IsHitEntityColliderEnabled && other.CompareTag("Entity"))
+        if (IsHitEntityColliderEnabled && other.TryGetComponent<Enemy>(out Enemy enemy))
         {
             Debug.Log("Bonk");
-            DisableHitEntityCollider();
             GameManager.Instance.audioHandler.PlayEntityDamagedSound(hitEntityCollider.bounds.center);
+            DisableHitEntityCollider();
+            enemy.TakeDamage(10);
         }
     }
 }

@@ -1,3 +1,4 @@
+using UnityEditor.Toolbars;
 using UnityEngine;
 
 public class Enemy : Entity
@@ -7,7 +8,9 @@ public class Enemy : Entity
     [SerializeField] private Rigidbody rb;
     [SerializeField] private BoxCollider hitEntityCollider;
     [SerializeField] private EntityUIHandler entityUIHandler;
-    
+    [SerializeField] private Entity target;
+    private float distanceBetweenObjects;
+
     private void Awake()
     {
         if (!rb)
@@ -23,9 +26,28 @@ public class Enemy : Entity
         transform.rotation = new  Quaternion(0, 180, 0, 0);
     }
     
-    
-    
-    
+    private void FindPlayer()
+    {
+        target = GameManager.Instance.listOfAllPlayerEntity[Random.Range(0, GameManager.Instance.listOfAllPlayerEntity.Count)];
+    }
+
+    private void GoToTarget()
+    {
+        if (target != null)
+        {
+            distanceBetweenObjects = Vector3.Distance(transform.position, target.transform.position);
+            if (distanceBetweenObjects > 3f)
+            {
+                
+            }
+        }
+
+    }
+
+
+
+
+
     protected override void OnFocus(Entity focus)
     {
         throw new System.NotImplementedException();

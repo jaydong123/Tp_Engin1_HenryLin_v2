@@ -18,6 +18,10 @@ public class GameManager : MonoBehaviour
     
     [SerializeField] private PlayerMovement testEntity;
     [SerializeField] private Enemy enemyEntity;
+
+    [SerializeField] public List<PlayerMovement> listOfAllPlayerEntity;
+    [SerializeField] public List<Enemy> listOfAllEnemyEntity;
+    
     private void Awake()
     {
         if (Instance == null)
@@ -26,18 +30,21 @@ public class GameManager : MonoBehaviour
         {
             Destroy(this);
         }
-        
+
         StartCoroutine(nameof(SpawnEntityEndlessly),5f);
+        //SpawnEntity(testEntity);
     }
 
-    private void SpawnEntity(Entity entity)
+    public void SpawnEntity(Entity entity)
     {
         if (entityCount < entityCap)
         {
             if (entity.fraction == Entity.Fraction.Player)
-                Instantiate(entity, baseGameObject.transform.position - Vector3.left * 3f, entity.transform.rotation);
+            {
+                listOfAllPlayerEntity.Add((PlayerMovement)Instantiate(entity, baseGameObject.transform.position - Vector3.left * 3f, entity.transform.rotation));
+            }
             else
-                Instantiate(entity, enemyBaseGameObject.transform.position - Vector3.right * 3f, entity.transform.rotation);
+                listOfAllEnemyEntity.Add((Enemy)Instantiate(entity, enemyBaseGameObject.transform.position - Vector3.right * 3f, entity.transform.rotation));
             entityCount++;
         }
     }
